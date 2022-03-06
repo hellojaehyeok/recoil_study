@@ -8,8 +8,8 @@ import textState from '../state/atom/textState';
 import textLenSelector from '../state/selector/textLenSelector';
 
 const Main = ({}) => {
-    const [count, setCount] = useRecoilState(countState);
-    const [text, setText] = useRecoilState(textState);
+    const count = useRecoilValue(countState);
+    const text = useRecoilValue(textState);
     const textLength = useRecoilValue(textLenSelector);
 
     return(

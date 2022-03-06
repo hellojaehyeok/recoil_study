@@ -1,16 +1,16 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import countState from '../../state/atom/countState';
 
 const HandleCount = ({}) => {
-    const [count, setCount] = useRecoilState(countState);
+    const setCount = useSetRecoilState(countState);
     
 
     return(
         <>
-            <ControlBtn onClick={() => setCount(count+1)}>Increase</ControlBtn>
-            <ControlBtn onClick={() => setCount(count-1)}>Decrease</ControlBtn>
+            <ControlBtn onClick={() => setCount(count=>count+1)}>Increase</ControlBtn>
+            <ControlBtn onClick={() => setCount(count=>count-1)}>Decrease</ControlBtn>
         </>
     )
 
