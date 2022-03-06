@@ -1,14 +1,16 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import HandleCount from '../components/count/handleCount';
 import HandleText from '../components/text/handleText';
 import countState from '../state/atom/countState';
 import textState from '../state/atom/textState';
+import textLenSelector from '../state/selector/textLenSelector';
 
 const Main = ({}) => {
     const [count, setCount] = useRecoilState(countState);
     const [text, setText] = useRecoilState(textState);
+    const textLength = useRecoilValue(textLenSelector);
 
     return(
         <Container>
@@ -17,6 +19,11 @@ const Main = ({}) => {
                 <Title>Atoms</Title>
                 current count : {count} <br />
                 current text : {text}
+            </Section>
+
+            <Section>
+                <Title>Selector</Title>
+                current text Length: {textLength}
             </Section>
             
             <Section>
