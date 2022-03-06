@@ -5,12 +5,16 @@ import HandleCount from '../components/count/handleCount';
 import HandleText from '../components/text/handleText';
 import countState from '../state/atom/countState';
 import textState from '../state/atom/textState';
+import sumCountSelector from '../state/selector/sumCountSelector';
 import textLenSelector from '../state/selector/textLenSelector';
 
 const Main = ({}) => {
     const count = useRecoilValue(countState);
+    const countSelector = useRecoilValue(sumCountSelector);
+
     const text = useRecoilValue(textState);
     const textLength = useRecoilValue(textLenSelector);
+    
 
     return(
         <Container>
@@ -23,6 +27,7 @@ const Main = ({}) => {
 
             <Section>
                 <Title>Selector</Title>
+                current count+1 : {countSelector} <br />
                 current text Length: {textLength}
             </Section>
             

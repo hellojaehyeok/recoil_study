@@ -1,16 +1,20 @@
 import React from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import countState from '../../state/atom/countState';
+import sumCountSelector from '../../state/selector/sumCountSelector';
 
 const HandleCount = ({}) => {
     const setCount = useSetRecoilState(countState);
-    
+    const resetCount = useResetRecoilState(countState);
+    const [sumCount, setSumCount] = useRecoilState(sumCountSelector);
 
     return(
         <>
             <ControlBtn onClick={() => setCount(count=>count+1)}>Increase</ControlBtn>
             <ControlBtn onClick={() => setCount(count=>count-1)}>Decrease</ControlBtn>
+            <ControlBtn onClick={() => setSumCount(sumCount)}>plus 10 (selector)</ControlBtn>
+            <ControlBtn onClick={resetCount}>reset couny</ControlBtn>
         </>
     )
 
