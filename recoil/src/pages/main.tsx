@@ -1,7 +1,8 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import HandleCount from '../components/count/handleCount';
+import NavBtn from '../components/nav/navBtn';
 import HandleText from '../components/text/handleText';
 import countState from '../state/atom/countState';
 import textState from '../state/atom/textState';
@@ -37,6 +38,7 @@ const Main = ({}) => {
                 <HandleText />
             </Section>
 
+            <NavBtn name='async' />
         </Container>
     )
 };
