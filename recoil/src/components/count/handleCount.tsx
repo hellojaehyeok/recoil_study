@@ -8,6 +8,7 @@ const HandleCount = ({}) => {
     const setCount = useSetRecoilState(countState);
     const resetCount = useResetRecoilState(countState);
     const [sumCount, setSumCount] = useRecoilState(sumCountSelector);
+    const resetSumCount = useResetRecoilState(sumCountSelector);
 
     return(
         <>
@@ -15,6 +16,7 @@ const HandleCount = ({}) => {
             <ControlBtn onClick={() => setCount(count=>count-1)}>Decrease</ControlBtn>
             <ControlBtn onClick={() => setSumCount(sumCount)}>plus 10 (selector)</ControlBtn>
             <ControlBtn onClick={resetCount}>reset couny</ControlBtn>
+            <ControlBtn onClick={resetSumCount}>resetSumCount (selector)</ControlBtn>
         </>
     )
 

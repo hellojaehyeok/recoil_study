@@ -11,7 +11,7 @@ export default selector({
     set: ({set, get}, newCount:any)=>{
         return set(
             countState,
-            newCount+10,
+            newCount instanceof DefaultValue?newCount:newCount+10,
         )
     }
 })
