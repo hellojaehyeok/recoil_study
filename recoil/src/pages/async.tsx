@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
-import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from 'recoil';
+import { useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 import NavBtn from '../components/nav/navBtn';
-import { selectUserSelector, userListSelector } from '../state/selector/userSelectors';
+import fetchApi from '../server/fetchApi';
+import clickUserIdState from '../state/atom/clickUserIdState';
+import { clickUserSelector, selectUserSelector, userListSelector } from '../state/selector/userSelectors';
 import UserType from '../type/userType';
 
 const Async = ({}) => {
@@ -11,6 +13,9 @@ const Async = ({}) => {
     
     // refresh
     const refreshUserList = useRecoilRefresher_UNSTABLE(userListSelector);
+
+    const [clickId, setClickId] = useRecoilState(clickUserIdState);
+    const clickUserData = useRecoilValueLoadable(clickUserSelector);
 
     // common async - Suspense 필요
     // const userList = useRecoilValue(userListSelector);
@@ -28,6 +33,9 @@ const Async = ({}) => {
     //     console.log(res);
     // }
 
+    const onClickUser = (id: number) => {
+        setClickId(id);
+    }
 
     return(
         <Container>
@@ -36,7 +44,7 @@ const Async = ({}) => {
                 {
                     userList.state==="hasValue" && userList.contents.map((item:UserType) => {
                         return(
-                            <UserEl key={item.id}>
+                            <UserEl key={item.id} onClick={() => onClickUser(item.id)}>
                                 {item.name}
                             </UserEl>
                         )
@@ -44,10 +52,18 @@ const Async = ({}) => {
                 }
             </div>
             <RefreshBtn onClick={refreshUserList}>Refresh UserData</RefreshBtn>
-
-
-            <Title>First user data</Title>
-
+            
+            <Title>Click Data</Title>
+            {
+                clickUserData.state==="hasValue" ? 
+                <>
+                    <div>{clickUserData.contents.name}</div>
+                    <div>{clickUserData.contents.email}</div>
+                    <div>{clickUserData.contents.phone}</div>
+                </>
+                :
+                <div>loading</div>
+            }
             <NavBtn name=''/>
         </Container>
     )
@@ -68,4 +84,5 @@ const RefreshBtn = styled.button`
 `
 const UserEl = styled.div`
     margin-bottom: 10px;
+    cursor: pointer;
 `

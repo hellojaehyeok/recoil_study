@@ -1,12 +1,21 @@
 import { selector, selectorFamily } from "recoil";
 import fetchApi from "../../server/fetchApi";
 import UserType from "../../type/userType";
+import clickUserIdState from "../atom/clickUserIdState";
 
 const userListSelector = selector({
     key:"userListSelector",
     get:async ({get}) => {
         const fetchUserData: UserType[] = await fetchApi("users", "GET");
-        console.log(fetchUserData)
+        return fetchUserData;
+    }
+});
+
+const clickUserSelector = selector({
+    key:"clickUserSelector",
+    get:async ({get}) => {
+        const userId = get(clickUserIdState);
+        const fetchUserData: UserType = await fetchApi(`users/${userId}`, "GET");
         return fetchUserData;
     }
 });
@@ -19,4 +28,4 @@ const selectUserSelector = selectorFamily({
     }
 })
 
-export {userListSelector, selectUserSelector}
+export {userListSelector, selectUserSelector, clickUserSelector}
