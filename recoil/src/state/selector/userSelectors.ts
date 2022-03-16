@@ -1,10 +1,12 @@
 import { selector, selectorFamily } from "recoil";
 import fetchApi from "../../server/fetchApi";
+import UserType from "../../type/userType";
 
 const userListSelector = selector({
     key:"userListSelector",
     get:async ({get}) => {
-        const fetchUserData = await fetchApi("users", "GET");
+        const fetchUserData: UserType[] = await fetchApi("users", "GET");
+        console.log(fetchUserData)
         return fetchUserData;
     }
 });
@@ -12,7 +14,7 @@ const userListSelector = selector({
 const selectUserSelector = selectorFamily({
     key:"selectUserSelector",
     get:(userId: number) => async () => {
-        const userEl = await fetchApi(`users/${userId}`, "GET");
+        const userEl: UserType = await fetchApi(`users/${userId}`, "GET");
         return userEl;
     }
 })

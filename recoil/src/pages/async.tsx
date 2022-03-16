@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useRecoilRefresher_UNSTABLE, useRecoilValue, useRecoilValueLoadable } from 'recoil';
+import { useRecoilRefresher_UNSTABLE, useRecoilValueLoadable } from 'recoil';
 import styled from 'styled-components';
 import NavBtn from '../components/nav/navBtn';
-import fetchApi from '../server/fetchApi';
 import { selectUserSelector, userListSelector } from '../state/selector/userSelectors';
+import UserType from '../type/userType';
 
 const Async = ({}) => {
     // loadable
@@ -28,22 +28,13 @@ const Async = ({}) => {
     //     console.log(res);
     // }
 
-    useEffect(() => {
-        if(userList.state==="hasValue"){
-            console.log(userList.contents);
-        }else if(userList.state==="loading"){
-            console.log("loading...");
-        }else if(userList.state==="hasError"){
-            console.error("userList error");
-        } 
-    }, [userList])
 
     return(
         <Container>
             <Title>UserList</Title>
             <div>
                 {
-                    userList.state==="hasValue" && userList.contents.map((item:any) => {
+                    userList.state==="hasValue" && userList.contents.map((item:UserType) => {
                         return(
                             <UserEl key={item.id}>
                                 {item.name}
@@ -52,12 +43,10 @@ const Async = ({}) => {
                     })
                 }
             </div>
-            <RefreshBtn onClick={refreshUserList}>refresh</RefreshBtn>
+            <RefreshBtn onClick={refreshUserList}>Refresh UserData</RefreshBtn>
+
 
             <Title>First user data</Title>
-            {/* <UserData>{selectUser.name}</UserData>
-            <UserData>{selectUser.email}</UserData>
-            <UserData>{selectUser.website}</UserData> */}
 
             <NavBtn name=''/>
         </Container>
